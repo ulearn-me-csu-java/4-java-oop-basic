@@ -1,26 +1,44 @@
 package com.example.task05;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Ломаная линия
  */
 public class PolygonalLine {
 
-    /**
-     * Устанавливает точки ломаной линии
-     *
-     * @param points массив точек, которыми нужно проинициализировать ломаную линию
-     */
-    public void setPoints(Point[] points) {
-        // TODO: реализовать
+    private List<Point> points;
+
+    public PolygonalLine() {
+        this.points = new ArrayList<>();
     }
 
     /**
-     * Добавляет точку к ломаной линии
+     * Устанавливает точки ломаной линии
+     *
+     * P.S. Исходя из тестов оказывается, что метод должен именно глубоко копировать points
+     * @param points массив точек, которыми нужно проинициализировать ломаную линию
+     *
+     */
+    public void setPoints(Point[] points) {
+        this.points = new ArrayList<>();
+        if (points != null) {
+            for (Point point : points) {
+                this.points.add(new Point(point.getX(), point.getY()));
+            }
+        }
+    }
+
+    /**
+     * Добавляет точку к ломаной линии (делает копию точки)
      *
      * @param point точка, которую нужно добавить к ломаной
      */
     public void addPoint(Point point) {
-        // TODO: реализовать
+        if (point != null) {
+            points.add(new Point(point.getX(), point.getY()));
+        }
     }
 
     /**
@@ -30,7 +48,7 @@ public class PolygonalLine {
      * @param y координата по оси ординат
      */
     public void addPoint(double x, double y) {
-        // TODO: реализовать
+        points.add(new Point(x, y));
     }
 
     /**
@@ -39,8 +57,32 @@ public class PolygonalLine {
      * @return длину ломаной линии
      */
     public double getLength() {
-        // TODO: реализовать
-        throw new AssertionError();
+        if (points.size() < 2) {
+            return 0;
+        }
+
+        double totalLength = 0;
+        for (int i = 0; i < points.size() - 1; i++) {
+            totalLength += points.get(i).getLength(points.get(i + 1));
+        }
+        return totalLength;
     }
 
+    // Далее представлены методы не из ТЗ
+    /**
+     * Возвращает количество точек в ломаной линии
+     */
+    public int getPointCount() {
+        return points.size();
+    }
+
+    /**
+     * Возвращает точку по индексу (НЕ КОПИЮ!)
+     */
+    public Point getPoint(int index) {
+        if (index >= 0 && index < points.size()) {
+            return points.get(index);
+        }
+        throw new IndexOutOfBoundsException("Невалидный индекс для данной ломанной линии");
+    }
 }
