@@ -1,9 +1,14 @@
 package com.example.task05;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Ломаная линия
  */
 public class PolygonalLine {
+
+    private final List<Point> points = new ArrayList<>(); // список точек ломаной линии
 
     /**
      * Устанавливает точки ломаной линии
@@ -11,7 +16,12 @@ public class PolygonalLine {
      * @param points массив точек, которыми нужно проинициализировать ломаную линию
      */
     public void setPoints(Point[] points) {
-        // TODO: реализовать
+        this.points.clear(); // очистка текущего списка точек
+        if (points != null) {
+            for (Point point : points) {
+                this.addPoint(point); // добавление копии точки в список
+            }
+        }
     }
 
     /**
@@ -20,7 +30,9 @@ public class PolygonalLine {
      * @param point точка, которую нужно добавить к ломаной
      */
     public void addPoint(Point point) {
-        // TODO: реализовать
+        if (point != null) {
+            this.points.add(new Point(point.getX(), point.getY())); // добавление копии точки
+        }
     }
 
     /**
@@ -30,7 +42,7 @@ public class PolygonalLine {
      * @param y координата по оси ординат
      */
     public void addPoint(double x, double y) {
-        // TODO: реализовать
+        this.points.add(new Point(x, y)); // создание и добавление новой точки
     }
 
     /**
@@ -39,8 +51,13 @@ public class PolygonalLine {
      * @return длину ломаной линии
      */
     public double getLength() {
-        // TODO: реализовать
-        throw new AssertionError();
+        double totalLength = 0;
+        for (int i = 0; i < points.size() - 1; i++) {
+            Point current = points.get(i); // текущая точка
+            Point next = points.get(i + 1); // следующая точка
+            totalLength += current.getLength(next); // суммирование расстояния между соседними точками
+        }
+        return totalLength;
     }
 
 }
