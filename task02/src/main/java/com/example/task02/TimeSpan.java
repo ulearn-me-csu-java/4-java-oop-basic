@@ -45,7 +45,6 @@ public class TimeSpan {
         normalize();
     }
 
-    // Вычитание временного интервала
     public void subtract(TimeSpan time) {
         this.hours -= time.getHours();
         this.minutes -= time.getMinutes();
