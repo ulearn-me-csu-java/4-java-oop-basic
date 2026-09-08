@@ -4,6 +4,8 @@ package com.example.task05;
  * Точка в двумерном пространстве
  */
 public class Point {
+    private double x;
+    private double y;
 
     /**
      * Конструктор, инициализирующий координаты точки
@@ -12,7 +14,20 @@ public class Point {
      * @param y координата по оси ординат
      */
     public Point(double x, double y) {
-        throw new AssertionError();
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * Конструктор копирования - создает копию точки
+     *
+     * @param other точка, которую нужно скопировать
+     */
+    public Point(Point other) {
+        if (other != null) {
+            this.x = other.x;
+            this.y = other.y;
+        }
     }
 
     /**
@@ -21,8 +36,7 @@ public class Point {
      * @return координату точки по оси X
      */
     public double getX() {
-        // TODO: реализовать
-        throw new AssertionError();
+        return x;
     }
 
     /**
@@ -31,8 +45,7 @@ public class Point {
      * @return координату точки по оси Y
      */
     public double getY() {
-        // TODO: реализовать
-        throw new AssertionError();
+        return y;
     }
 
     /**
@@ -41,8 +54,7 @@ public class Point {
      * @param x координата точки по оси X
      */
     public void setX(double x) {
-        // TODO: реализовать
-        throw new AssertionError();
+        this.x = x;
     }
 
     /**
@@ -51,8 +63,7 @@ public class Point {
      * @param y координата точки по оси Y
      */
     public void setY(double y) {
-        // TODO: реализовать
-        throw new AssertionError();
+        this.y = y;
     }
 
     /**
@@ -62,8 +73,25 @@ public class Point {
      * @return расстояние от текущей точки до переданной
      */
     public double getLength(Point point) {
-        // TODO: реализовать
-        throw new AssertionError();
+        if (point == null) {
+            return 0.0;
+        }
+        double dx = this.x - point.x;
+        double dy = this.y - point.y;
+        return Math.sqrt(dx * dx + dy * dy);
     }
 
+    /**
+     * Создает копию точки
+     *
+     * @return новый объект Point с теми же координатами
+     */
+    public Point copy() {
+        return new Point(this.x, this.y);
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
 }
