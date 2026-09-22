@@ -1,17 +1,28 @@
 package com.example.task05;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Ломаная линия
  */
-public class PolygonalLine {
+public class PolygonalLine
+{
+    private final List<Point> points = new ArrayList<>();
 
     /**
      * Устанавливает точки ломаной линии
      *
      * @param points массив точек, которыми нужно проинициализировать ломаную линию
      */
-    public void setPoints(Point[] points) {
-        // TODO: реализовать
+    public void setPoints(Point[] points)
+    {
+        this.points.clear();
+        for (Point p : points)
+        {
+            this.points.add(copyOf(p));
+        }
     }
 
     /**
@@ -19,8 +30,9 @@ public class PolygonalLine {
      *
      * @param point точка, которую нужно добавить к ломаной
      */
-    public void addPoint(Point point) {
-        // TODO: реализовать
+    public void addPoint(Point point)
+    {
+        points.add(copyOf(point));
     }
 
     /**
@@ -29,8 +41,9 @@ public class PolygonalLine {
      * @param x координата по оси абсцисс
      * @param y координата по оси ординат
      */
-    public void addPoint(double x, double y) {
-        // TODO: реализовать
+    public void addPoint(double x, double y)
+    {
+        points.add(new Point(x, y));
     }
 
     /**
@@ -38,9 +51,19 @@ public class PolygonalLine {
      *
      * @return длину ломаной линии
      */
-    public double getLength() {
-        // TODO: реализовать
-        throw new AssertionError();
+    public double getLength()
+    {
+        double total = 0;
+        for (int i = 1; i < points.size(); i++)
+        {
+            total += points.get(i - 1).getLength(points.get(i));
+        }
+
+        return total;
     }
 
+    private static Point copyOf(Point p)
+    {
+        return new Point(p.getX(), p.getY());
+    }
 }
