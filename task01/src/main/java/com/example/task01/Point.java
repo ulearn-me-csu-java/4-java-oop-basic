@@ -1,39 +1,30 @@
 package com.example.task01;
 
-/**
- * Класс точки на плоскости
- */
 public class Point {
     int x;
     int y;
 
     public Point(int x, int y) {
-        // TODO: реализовать
-        throw new UnsupportedOperationException("Конструктор не реализован");
+        this.x = x;
+        this.y = y;
     }
 
-    /**
-     * "Вращает" точку относительно начала координат на 180 градусов
-     */
+    // "Вращает" точку: меняет знаки и меняет местами (5, -7) -> (7, -5)
     public void flip() {
-        // TODO: реализовать
-        throw new UnsupportedOperationException("Метод flip не реализован");
+        x = -x; // 5 -> -5
+        y = -y; // -7 -> 7
+        int temp = x;
+        x = y;  // x = 7
+        y = temp; // y = -5
     }
 
-    /**
-     * Считает расстояние от текущей точки до переданной
-     *
-     * @param point вторая точка
-     * @return расстояние между точками
-     */
+    // Расстояние между текущей точкой и переданной
     public double distance(Point point) {
-        // TODO: реализовать
-        throw new UnsupportedOperationException("Метод distance не реализован");
+        return Math.sqrt(Math.pow(this.x - point.x, 2) + Math.pow(this.y - point.y, 2));
     }
 
     @Override
     public String toString() {
-        // TODO: реализовать
-        throw new UnsupportedOperationException("Метод toString не реализован");
+        return "(" + x + ", " + y + ")";
     }
 }
